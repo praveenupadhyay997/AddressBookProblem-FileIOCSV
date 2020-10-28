@@ -35,10 +35,10 @@ namespace AddressBookProblem
         /// <param name="zip">The zip.</param>
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="emailId">The email identifier.</param>
-        public ContactDetails(string firstName, string secName, string address, string city, string state, long zip, long phoneNumber, string emailId)
+        public ContactDetails(string firstName, string secondName, string address, string city, string state, long zip, long phoneNumber, string emailId)
         {
             this.firstName = firstName.ToLower();
-            this.secondName = secName.ToLower();
+            this.secondName = secondName.ToLower();
             this.address = address;
             this.city = city;
             this.state = state;
