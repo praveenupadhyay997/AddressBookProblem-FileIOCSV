@@ -9,10 +9,11 @@ namespace AddressBookProblem
     using System;
     using System.Collections.Generic;
     using System.Text;
+    [Serializable]
     public class ContactDetails
     {
         /// <summary>
-        /// contact PRoperties mentioned in the Use-Case
+        /// contact Properties mentioned in the Use-Case
         /// </summary>
         public string firstName;
         public string secondName;

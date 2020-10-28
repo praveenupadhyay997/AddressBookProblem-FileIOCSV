@@ -9,6 +9,8 @@ namespace AddressBookProblem
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using Newtonsoft.Json;
+    [Serializable]
     public class AddressBook
     {
         /// List Collection used to cover the domain of contact addition inside an address book
@@ -33,6 +35,11 @@ namespace AddressBookProblem
         public long zip;
         public long phoneNumber;
         public string email;
+
+        public AddressBook()
+        {
+
+        }
 
         /// <summary>
         /// Dictionary to add the list of person with the as the state name
