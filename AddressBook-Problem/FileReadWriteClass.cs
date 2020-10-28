@@ -7,6 +7,7 @@ using System.Text;
 using CsvHelper;
 using System.Linq;
 using CsvHelper.Configuration;
+using Newtonsoft.Json;
 
 namespace AddressBookProblem
 {
@@ -16,6 +17,8 @@ namespace AddressBookProblem
         const int WRITE_TXT = 2;
         const int READ_CSV = 3;
         const int WRITE_CSV = 4;
+        const int READ_JSON = 5;
+        const int WRITE_JSON= 6;
 
         /// <summary>
         /// Guidance menu for the file IO Operation
@@ -49,6 +52,15 @@ namespace AddressBookProblem
                 case WRITE_CSV:
                     WriteToCSVFile(addressBook);
                     break;
+
+                case READ_JSON:
+                    ReadJsonfile(addressBook);
+                    break;
+
+                case WRITE_JSON:
+                    WriteToJsonFile(addressBook);
+                    break;
+                    
                 default:
                     Console.WriteLine("Invalid Choice... Kindly enterthe right choice...");
                     Console.Clear();
@@ -149,6 +161,50 @@ namespace AddressBookProblem
                 csv.Configuration.MemberTypes = CsvHelper.Configuration.MemberTypes.Fields;
                 csv.WriteRecords(addressBook.contactList);
                 sw.Flush();
+            }
+        }
+        /// <summary>
+        /// UC15- Writing to the Json file using Newtonsoft.Json as the third party extension
+        /// </summary>
+        /// <param name="addressBook"></param>
+        public static void WriteToJsonFile(AddressBook addressBook)
+        {
+            ///Specifying the path for the json file
+            string filePath = @$"F:\Program files(x64)\Microsoft Visual Studio\BridgeLabzAssignments\AddressBookProblem-FileIOCSV\{addressBook.nameOfAddressBook}.json";
+            /// Quick creation of stream writer object
+            using (StreamWriter sw = new StreamWriter(filePath))
+            {
+                //Serializing to json string
+                string json = JsonConvert.SerializeObject(addressBook.contactList);
+                //Writing to the standard stream writer
+                sw.WriteLine(json);
+                sw.Flush();
+            }
+        }
+        /// <summary>
+        /// UC15- Reading from the Json file using Newtonsoft.Json as the third party extension
+        /// </summary>
+        /// <param name="addressBook"></param>
+        public static void ReadJsonfile(AddressBook addressBook)
+        {
+            try
+            {
+                ///Specifying the path for the json file
+                string filePath = @$"F:\Program files(x64)\Microsoft Visual Studio\BridgeLabzAssignments\AddressBookProblem-FileIOCSV\{addressBook.nameOfAddressBook}.json";
+                // Readig all the contentof the json file
+                string json = File.ReadAllText(filePath);
+                // Convert the content to the list
+                List<ContactDetails> list = JsonConvert.DeserializeObject<List<ContactDetails>>(json);
+                foreach (ContactDetails contact in list)
+                {
+                    Console.WriteLine("\nFullName: " + contact.firstName + " " + contact.secondName + "\nAddress: " +
+                        contact.address + "\nCity: " + contact.city + "\nState: " + contact.state + "\nZip: " + contact.zip +
+                        "\nPhoneNumber: " + contact.phoneNumber + "\nEmail: " + contact.emailId + "\n");
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("File Not Found. Either write the file or make sure the file is already present.....");
             }
         }
     }
