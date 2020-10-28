@@ -33,6 +33,8 @@ namespace AddressBookProblem
             Console.WriteLine("2.Write to the Text IO File");
             Console.WriteLine("3.Read the CSV IO File");
             Console.WriteLine("4.Write to the CSV IO File");
+            Console.WriteLine("3.Read the Json IO File");
+            Console.WriteLine("4.Write to the Json IO File");
 
             int choice = Convert.ToInt32(Console.ReadLine());
             switch(choice)
